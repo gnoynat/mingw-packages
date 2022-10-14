@@ -58,6 +58,7 @@ source=(https://github.com/openscenegraph/OpenSceneGraph/archive/${_realname}-${
         0008-opencascade-7.6.0.patch
         # https://github.com/gentoo/gentoo/blob/master/dev-games/openscenegraph/files/openscenegraph-3.6.5-openexr3.patch
         openscenegraph-3.6.5-openexr3.patch
+        find-dcmtk.patch
         )
 sha256sums=('aea196550f02974d6d09291c5d83b51ca6a03b3767e234a8c0e21322927d1e12'
             '24f64f975e776fc018f9c65a1bcae043dded1d4174342d863f9f205b013acc13'
@@ -68,7 +69,8 @@ sha256sums=('aea196550f02974d6d09291c5d83b51ca6a03b3767e234a8c0e21322927d1e12'
             '108bc2ab77959b007dbe5a28be4d06bce364959c89d142a02870f6de466af9bb'
             'a70765ce5e4493e9047b33ab89f322a5d6145649d700e5f6a89e84db7880ecb7'
             '0413b3244e91ca7664bd6d6c2a646fae6adb126b181d484eea41a4b7346d1078'
-            '7dd35b920e95a7b0de0c14dee59b28f2a279bfdb8f4971e94395e51a4be9bad9')
+            '7dd35b920e95a7b0de0c14dee59b28f2a279bfdb8f4971e94395e51a4be9bad9'
+            '12c95e4c49b7487e344c47d382c08289ae4a79b7c1222db47da00b15255ba803')
 
 apply_patch_with_msg() {
   for _patch in "$@"
@@ -90,7 +92,8 @@ prepare() {
     backport-1055.patch \
     backport-977.patch \
     0008-opencascade-7.6.0.patch \
-    openscenegraph-3.6.5-openexr3.patch
+    openscenegraph-3.6.5-openexr3.patch \
+    find-dcmtk.patch
 }
 
 build() {
@@ -101,9 +104,9 @@ build() {
     mkdir -p ${builddir}
     pushd ${builddir}
       [[ "${builddir%-${MSYSTEM}}" == "Release" ]] && {
-        local _opts="-DBUILD_OSG_EXAMPLES=ON"
+        local _opts="-DOSG_GL3_AVAILABLE=ON -DBUILD_OSG_EXAMPLES=ON"
       } || {
-        local _opts="-DBUILD_OSG_EXAMPLES=OFF -DBUILD_OSG_APPLICATIONS=OFF"
+        local _opts="-DOSG_GL3_AVAILABLE=ON -DBUILD_OSG_EXAMPLES=OFF -DBUILD_OSG_APPLICATIONS=OFF"
       }
 
       msg "Building ${builddir%-${MSYSTEM}} version..."

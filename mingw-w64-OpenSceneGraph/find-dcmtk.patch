@@ -1,0 +1,13 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index e858f1b4c..9f9e08154 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -783,7 +783,7 @@ ELSE()
+     FIND_PACKAGE(GTA)
+     FIND_PACKAGE(CURL)
+     FIND_PACKAGE(LibVNCServer)
+-    FIND_PACKAGE(DCMTK)
++    # FIND_PACKAGE(DCMTK)
+     FIND_PACKAGE(FFmpeg)
+     FIND_PACKAGE(GStreamer COMPONENTS app pbutils)
+     FIND_PACKAGE(GLIB COMPONENTS gobject)
